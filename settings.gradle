@@ -1,3 +1,4 @@
 rootProject.name = 'DoS-Defense'
 include 'attack'
+include 'server'
 
