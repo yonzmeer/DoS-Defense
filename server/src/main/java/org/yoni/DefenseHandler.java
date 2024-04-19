@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DefenseHandler implements HttpHandler {
@@ -17,7 +16,6 @@ public class DefenseHandler implements HttpHandler {
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
-    LOGGER.log(Level.INFO, "Handling request in {0}", Thread.currentThread().getName());
     String clientId = getClientId(httpExchange);
 
     incrementRequestsInFrame(clientId);
@@ -39,11 +37,9 @@ public class DefenseHandler implements HttpHandler {
       return;
     }
 
-    requestFrame.increment();
+    requestFrame.incrementRequests();
 
-    LOGGER.info(
-        String.format(
-            "For clientId %s - this is request number %d", clientId, requestFrame.getRequests()));
+    LOGGER.info(String.format("For clientId %s - reqeustFrame %s", clientId, requestFrame));
   }
 
   private static boolean validate(String clientId) {

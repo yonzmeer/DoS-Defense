@@ -13,7 +13,7 @@ public class Main {
   private static final Scanner SCANNER = new Scanner(System.in);
 
   public static void main(String[] args) {
-    LOGGER.info("Welcome to DoS attacking!");
+    LOGGER.info("Welcome to DDoS attacking!");
 
     int numberOfClients = getNumberOfClients();
 
@@ -32,7 +32,7 @@ public class Main {
   }
 
   private static int getNumberOfClients() {
-    LOGGER.log(Level.INFO, "Enter number of attacking clients: ");
+    LOGGER.info("Enter number of attacking clients: ");
 
     int numberOfClients = SCANNER.nextInt();
     SCANNER.nextLine();
@@ -41,7 +41,7 @@ public class Main {
   }
 
   private static void awaitUserTermination() {
-    LOGGER.log(Level.INFO, "Press Enter to stop all clients");
+    LOGGER.info("Press Enter to stop all clients");
 
     SCANNER.nextLine();
   }

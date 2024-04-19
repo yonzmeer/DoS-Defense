@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
@@ -28,7 +27,7 @@ public class Main {
   }
 
   private static void awaitUserTermination() {
-    LOGGER.log(Level.INFO, "Press Enter to stop server");
+    LOGGER.info("Press Enter to stop server");
 
     SCANNER.nextLine();
   }

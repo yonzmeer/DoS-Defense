@@ -6,7 +6,7 @@ public class RequestFrame {
   private final long creationTime = System.currentTimeMillis();
   @Getter private int requests = 1;
 
-  public void increment() {
+  public void incrementRequests() {
     requests++;
   }
 
@@ -16,5 +16,10 @@ public class RequestFrame {
 
   public boolean isValid() {
     return requests <= 5;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("[ startTime=%d, requests=%d ]", creationTime, requests);
   }
 }
