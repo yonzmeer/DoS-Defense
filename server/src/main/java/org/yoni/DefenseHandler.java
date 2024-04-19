@@ -12,10 +12,10 @@ public class DefenseHandler implements HttpHandler {
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
-    LOGGER.log(Level.INFO,"Handling request in {0}", Thread.currentThread().getName());
+    LOGGER.log(Level.INFO, "Handling request in {0}", Thread.currentThread().getName());
     String clientId = getClientId(httpExchange);
 
-    if (validate(clientId))  {
+    if (validate(clientId)) {
       httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, -1);
     } else {
       httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAVAILABLE, -1);
@@ -29,6 +29,6 @@ public class DefenseHandler implements HttpHandler {
   }
 
   private String getClientId(HttpExchange httpExchange) {
-   return httpExchange.getRequestURI().getQuery().split("=")[1];
+    return httpExchange.getRequestURI().getQuery().split("=")[1];
   }
 }

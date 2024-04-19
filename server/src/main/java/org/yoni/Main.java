@@ -1,19 +1,16 @@
 package org.yoni;
 
 import com.sun.net.httpserver.HttpServer;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpExchange;
-
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
-import java.net.http.HttpResponse;
+import java.util.Scanner;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
   private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+  private static final Scanner SCANNER = new Scanner(System.in);
 
   public static void main(String[] args) throws IOException {
     LOGGER.info("Starting server");
@@ -23,5 +20,16 @@ public class Main {
     server.setExecutor(Executors.newCachedThreadPool());
 
     server.start();
+
+    awaitUserTermination();
+
+    server.stop(0);
+    System.exit(0);
+  }
+
+  private static void awaitUserTermination() {
+    LOGGER.log(Level.INFO, "Press Enter to stop server");
+
+    SCANNER.nextLine();
   }
 }

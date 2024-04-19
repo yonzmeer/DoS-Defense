@@ -17,11 +17,36 @@ public class Main {
 
     int numberOfClients = getNumberOfClients();
 
-    ExecutorService executorService = Executors.newFixedThreadPool(numberOfClients);
-    IntStream.range(0, numberOfClients).mapToObj(Attacker::new).forEach(executorService::execute);
+    ExecutorService executorService = startClients(numberOfClients);
 
     awaitUserTermination();
 
+    terminate(executorService);
+  }
+
+  private static ExecutorService startClients(int numberOfClients) {
+    ExecutorService executorService = Executors.newFixedThreadPool(numberOfClients);
+    IntStream.range(0, numberOfClients).mapToObj(Attacker::new).forEach(executorService::execute);
+
+    return executorService;
+  }
+
+  private static int getNumberOfClients() {
+    LOGGER.log(Level.INFO, "Enter number of attacking clients: ");
+
+    int numberOfClients = SCANNER.nextInt();
+    SCANNER.nextLine();
+
+    return numberOfClients;
+  }
+
+  private static void awaitUserTermination() {
+    LOGGER.log(Level.INFO, "Press Enter to stop all clients");
+
+    SCANNER.nextLine();
+  }
+
+  private static void terminate(ExecutorService executorService) {
     try {
       executorService.shutdownNow();
       boolean terminatedSuccessfully = executorService.awaitTermination(5, TimeUnit.SECONDS);
@@ -33,29 +58,5 @@ public class Main {
       Thread.currentThread().interrupt();
       System.exit(-1);
     }
-  }
-
-  private static int getNumberOfClients() {
-    int numberOfClients = 0;
-
-    while (numberOfClients <= 0) {
-      LOGGER.log(Level.INFO, "Enter number of attacking clients: ");
-      try {
-        numberOfClients = Integer.parseInt(SCANNER.nextLine());
-        if (numberOfClients <= 0) {
-          LOGGER.log(Level.INFO, "Please enter a positive integer");
-        }
-      } catch (NumberFormatException e) {
-        LOGGER.log(Level.INFO, "Invalid input");
-      }
-    }
-
-    return numberOfClients;
-  }
-
-  private static void awaitUserTermination() {
-    LOGGER.log(Level.INFO, "Press Enter to stop all clients");
-
-    SCANNER.nextLine();
   }
 }
