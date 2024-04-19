@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.http.HttpResponse;
+import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 public class Main {
@@ -19,7 +20,8 @@ public class Main {
 
     HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
     server.createContext("/", new DefenseHandler());
-    server.setExecutor(null);
+    server.setExecutor(Executors.newCachedThreadPool());
+
     server.start();
   }
 }
